@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Café con Historia | Oaxaca</title>
+  <style>
+    /* Paleta de colores */
+    :root {
+      --hueso: #F8EDD6;
+      --cafe-claro: #B35643;
+      --verde: #7AA985;
+      --negro: #050505;
+      --blanco: #FFFFFF;
+    }
+
+    /* Tipografías */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+    
+    @font-face {
+      font-family: 'Gill Sans MT Condensed';
+      src: local('Gill Sans MT Ext Condensed Bold'), local('GillSansMT-ExtraBoldCondensed');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--hueso);
+      color: var(--negro);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Gill Sans MT Condensed', sans-serif;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--negro);
+    }
+
+    /* Header */
+    .site-header {
+      background-color: var(--hueso);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--cafe-claro);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-img {
+      height: 70px;
+      width: auto;
+    }
+
+    /* Navegación */
+    .main-nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .main-nav a {
+      color: var(--negro);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .main-nav a:hover {
+      color: var(--cafe-claro);
+    }
+
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--verde);
+      transition: width 0.3s;
+    }
+
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 90vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-content {
+      position: absolute;
+      text-align: center;
+      color: var(--hueso);
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+
+    .hero-content h1 {
+      font-size: 4.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1;
+      color: var(--hueso);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    /* Botón */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background-color: var(--verde);
+      color: var(--hueso);
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: 2px solid var(--verde);
+    }
+
+    .btn:hover {
+      background-color: transparent;
+      color: var(--verde);
+    }
+
+    /* Secciones */
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background-color: var(--cafe-claro);
+      margin: 1.5rem auto 0;
+    }
+
+    /* Historia */
+    .historia-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .historia-text {
+      padding: 2rem;
+    }
+
+    .historia-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .historia-image {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .historia-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .historia-image:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Misión */
+    .mision {
+      background-color: var(--blanco);
+      padding: 5rem 2rem;
+      margin: 4rem 0;
+      position: relative;
+    }
+
+    .mision::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--verde) 0%, var(--cafe-claro) 100%);
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .mision-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .mision-content h2 {
+      margin-bottom: 2rem;
+    }
+
+    .mision-content p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .compromisos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .compromiso {
+      background-color: var(--hueso);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+
+    .compromiso:hover {
+      transform: translateY(-5px);
+    }
+
+    .compromiso h3 {
+      color: var(--cafe-claro);
+      margin-bottom: 1rem;
+    }
+
+    /* Galería */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      aspect-ratio: 4/3;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--negro);
+      color: var(--hueso);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer-logo {
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo img {
+      height: 60px;
+      width: auto;
+    }
+
+    .footer-info p {
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--hueso);
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: var(--verde);
+    }
+
+    .footer-contact h3,
+    .footer-links h3 {
+      color: var(--hueso);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-contact p {
+      margin-bottom: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--hueso);
+      text-decoration: none;
+      transition: color 0.3s;
+      opacity: 0.8;
+    }
+
+    .footer-links a:hover {
+      color: var(--verde);
+      opacity: 1;
+    }
+
+    .copyright {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .site-header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo-container {
+        margin-bottom: 1rem;
+      }
+      
+      .main-nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      
+      .historia-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .historia-text {
+        padding: 0;
+      }
+      
+      .section {
+        padding: 4rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="logo-container">
+      <img src= "../../Unnamed Site 2/logo-cafe-con-historia.png" alt="Café con Historia" class="logo-img">
+    </div>
+    <nav class="main-nav">
+      <a href="#historia">Nuestra Historia</a>
+      <a href="#mision">Nuestra Misión</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="https://hips.hearstapps.com/hmg-prod/images/ad-hoc-libreria-cafe-elle-gourmet-64f37fe46c05a.jpg?resize=980:*" alt="Interior de Café con Historia" class="hero-image">
+    <div class="hero-content">
+      <h1>CAFÉ CON HISTORIA</h1>
+      <p>Un espacio donde el café, la cultura y la comunidad se encuentran</p>
+      <a href="#historia" class="btn">Conoce nuestra historia</a>
+    </div>
+  </section>
+
+  <!-- Nuestra Historia -->
+  <section id="historia" class="section">
+    <h2 class="section-title">Nuestra Historia</h2>
+    <div class="historia-content">
+      <div class="historia-text">
+        <p>Café con Historia nació del deseo de crear un espacio donde el café no solo se toma, sino que se comparte. Fundado por Valentina García, una amante del buen café, la poesía y la vida de barrio, este rincón en el corazón de Oaxaca de Juárez es mucho más que una cafetería: es un refugio para las conversaciones largas, los libros abiertos y las ideas que se encuentran entre tazas humeantes.</p>
+        <p>Desde nuestros inicios, elegimos trabajar con productores locales y café orgánico, cuidando cada detalle desde el origen del grano hasta la taza. Nuestra repostería es artesanal y horneada con cariño todos los días, inspirada en recetas tradicionales y sabores de temporada.</p>
+        <p>Pero lo que realmente nos define es la comunidad. Aquí celebramos la cultura: organizamos lecturas de poesía, exposiciones, y actividades que dan voz a artistas, escritores y soñadores locales. Cada visita a Café con Historia es una nueva página que se escribe entre quienes comparten este espacio.</p>
+      </div>
+      <div class="historia-image">
+        <img src="https://www.dondeir.com/wp-content/uploads/2021/07/clarice-cafebreria.jpg" alt="Fundadora de Café con Historia">
+      </div>
+    </div>
+  </section>
+
+  <!-- Nuestra Misión -->
+  <section id="mision" class="mision">
+    <div class="section">
+      <div class="mision-content">
+        <h2 class="section-title">Nuestra Misión</h2>
+        <p>En Café con Historia queremos ser un lugar donde el café tenga alma, donde cada sabor cuente una historia y cada rincón invite a quedarse.</p>
+        
+        <div class="compromisos">
+          <div class="compromiso">
+            <h3>Café de Calidad</h3>
+            <p>Ofrecer café orgánico y de origen responsable, cuidando cada paso del proceso desde el grano hasta tu taza.</p>
+          </div>
+          <div class="compromiso">
+            <h3>Cultura Local</h3>
+            <p>Promover el talento local a través de eventos culturales abiertos y gratuitos que enriquezcan nuestra comunidad.</p>
+          </div>
+          <div class="compromiso">
+            <h3>Comunidad</h3>
+            <p>Ser un punto de encuentro donde todos se sientan bienvenidos, valorados e inspirados para crear conexiones significativas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería -->
+  <section id="galeria" class="section">
+    <h2 class="section-title">Nuestro Espacio</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqNvYMpmBX_RZUWQEDX1jMPNanPwGT9Q7Lp7p6OyoH7jU5ZbiXLHBJWI8YI2I53ZUuSnzqypQPoLtbpy3-qAGvdd2YaWJNExbrWi0GUqcp6DliMrAOyz5nW7EFtYrWSK_H8HvuJ=s680-w680-h510-rw" alt="Interior de la cafetería">
+      </div>
+      <div class="gallery-item">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrfg30BbNQGq8nP7b1_O2Uom_Fh-Yvyr6WEleeQhvBoFujNWn_e_twvEHFFVOeX0ZDWNry3KYvFP2UJBC7F_RpmK2NBgIb7eC_WTjtTtG0gnh0P2QFD6FITvs_2EScJz7da40uDqQ=s680-w680-h510-rw" alt="Barra de café">
+      </div>
+      <div class="gallery-item">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4notuc7aaIy1IVGfZmvonrUgUzqGYIa9Wsp-eUkz6OKAsBl0yOEEwvuGe3IKailJQJcZ3R7iPiaPyq790KmahWk3sKDqp3G4BHPljGZjEP33PjN7f0Yp0YukVq4SMbxfzZHsaLP2=s680-w680-h510-rw" alt="Área de lectura">
+      </div>
+      <div class="gallery-item">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqf6BX7XVe61Q8lz9eo39QjJ8dmJbD4WcV9LnVuFEKxbQ1jyYDPbu7QNDyDFcX1LdnnU5Fhh4u4uQOTVKF3SbmejxuYXvdHedZP_rgETVhFkhT18PwyZcL9WzGwUKUaOvzaYkcWAg=s680-w680-h510-rw" alt="Evento cultural">
+      </div>
+      <div class="gallery-item">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrqHQ3LxUSYsgmcVTAHXFAJYkZjyv-iwfgjgqO6dXSm63CNclIfbEWtlY0OsedTq9E8qnLVQ-HRNkKI8CH6QPrMRw2cxom26eaiVj44bhYNtcP1NbxFUjF9QBncR2Wb96dwhgUaYw=s680-w680-h510-rw" alt="Repostería artesanal">
+      </div>
+      <div class="gallery-item">
+        <img src="https://lh3.googleusercontent.com/p/AF1QipO5-8cw83n37bBVMM83t6sufWWeb09-eMzLY5no=s680-w680-h510-rw" alt="Terraza exterior">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contacto" class="site-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-logo">
+          <img src= "../../Unnamed Site 2/logo-cafe-con-historia.png"  alt="Café con Historia">
+        </div>
+        <p>Un espacio donde el café, la cultura y la comunidad se encuentran en el corazón de Oaxaca.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="Facebook">👍</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+        </div>
+      </div>
+      
+      <div class="footer-contact">
+        <h3>Contacto</h3>
+        <p>📍 Calle Macedonio Alcalá 307, Centro, Oaxaca de Juárez</p>
+        <p>🕒 Lunes a Viernes: 7:30 AM - 10:00 PM</p>
+        <p>Sábado y Domingo: 8:00 AM - 11:00 PM</p>
+        <p>📞 Tel: 951 123 4567</p>
+        <p>✉️ contacto@cafeconhistoria.com</p>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Enlaces</h3>
+        <ul>
+          <li><a href="#historia">Nuestra Historia</a></li>
+          <li><a href="#mision">Nuestra Misión</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Menú</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>© 2025 Café con Historia. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
